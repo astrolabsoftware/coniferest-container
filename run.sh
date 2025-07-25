@@ -22,7 +22,7 @@ docker run -it \
     --name coniferest \
     $mounts --rm \
     --user=$(id -u):$(id -g $USER) \
-    -w $HOME -- \
+    -w /home/coniferest -- \
     "$CIUX_IMAGE_URL"
 
 ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' coniferest)
