@@ -14,11 +14,11 @@ ciux ignite -l "$SELECTOR" "$PROJECT_DIR"
 
 . $PROJECT_DIR/.ciux.d/ciuxconfig.sh
 
-mounts="--volume /home/coniferest:$DIR/homefs"
+mounts="--volume $DIR/homefs:/home/coniferest"
 mounts="$mounts --volume /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro"
 
 echo "Using image $CIUX_IMAGE_URL"
-docker run -it \
+docker run -d \
     --name coniferest \
     $mounts --rm \
     --user=$(id -u):$(id -g $USER) \
