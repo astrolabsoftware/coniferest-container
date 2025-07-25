@@ -16,6 +16,8 @@ This repository provides a minimal, production-ready Docker image for running `c
 
 ## Requirement
 
+Install them first!
+
 - `Docker` >= 27.5.1
 - `go`>= 1.23.4
 
@@ -24,11 +26,14 @@ This repository provides a minimal, production-ready Docker image for running `c
 ```bash
 git clone https://github.com/astrolabsoftware/coniferest-container
 
-# Install pre-requisites
+# Install pre-requisites (i.e ciux packaging tool)
 ./prereq.sh
 
 # Build image
 ./build.sh
+
+# Push image to astrolabsoftware registry
+./push-image.sh
 
 # Run image
 ./run.sh
