@@ -4,10 +4,11 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV HOME=/home/coniferest
-RUN mkdir $HOME
+ENV INSTALL_DIR=/opt/coniferest
+RUN mkdir $INSTALL_DIR
 
 # Define Conda installation directory and update PATH
-ENV CONDA_DIR=$HOME/conda
+ENV CONDA_DIR=$INSTALL_DIR/conda
 ENV PATH=$CONDA_DIR/bin:$PATH
 
 # Install system dependencies
@@ -34,10 +35,10 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-${PYTHON_VERSION
 # Install required packages
 ADD rootfs /
 ENV PIP_NO_CACHE_DIR=1
-RUN pip install -r $HOME/requirements.txt
+RUN pip install -r $INSTALL_DIR/requirements.txt
 
 # Set working directory
-WORKDIR $HOME/data 
+WORKDIR $HOME
 
 # Use bash shell for proper conda activation
 SHELL ["/bin/bash", "-c"]

@@ -9,17 +9,18 @@ set -euxo pipefail
 DIR=$(cd "$(dirname "$0")"; pwd -P)
 PROJECT_DIR=$DIR
 
-ciux ignite "$PROJECT_DIR"
+SELECTOR="run"
+ciux ignite -l "$SELECTOR" "$PROJECT_DIR"
 
 . $PROJECT_DIR/.ciux.d/ciuxconfig.sh
 
-MOUNTS="$MOUNTS --volume /data:$DIR/data"
-MOUNTS="$MOUNTS --volume /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro"
+mounts="--volume /home/coniferest:$DIR/homefs"
+mounts="$mounts --volume /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro"
 
 echo "Using image $CIUX_IMAGE_URL"
 docker run -it \
-    --name coniferest
-    $MOUNTS --rm \
+    --name coniferest \
+    $mounts --rm \
     --user=$(id -u):$(id -g $USER) \
     -w $HOME -- \
     "$CIUX_IMAGE_URL"
